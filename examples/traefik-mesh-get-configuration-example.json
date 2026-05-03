@@ -1,0 +1,31 @@
+{
+  "http": {
+    "routers": {
+      "traefik-mesh-my-service-80-6ba7b810": {
+        "entryPoints": ["traefik-mesh-5000"],
+        "rule": "Host(`my-service.default.traefik.mesh`)",
+        "service": "traefik-mesh-my-service-80",
+        "middlewares": []
+      }
+    },
+    "services": {
+      "traefik-mesh-my-service-80": {
+        "loadBalancer": {
+          "servers": [
+            {"url": "http://10.0.0.10:80"},
+            {"url": "http://10.0.0.11:80"}
+          ]
+        }
+      }
+    },
+    "middlewares": {}
+  },
+  "tcp": {
+    "routers": {},
+    "services": {}
+  },
+  "udp": {
+    "routers": {},
+    "services": {}
+  }
+}

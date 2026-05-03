@@ -1,0 +1,28 @@
+{
+  "title": "Traefik Mesh Pod Info Structure",
+  "description": "JSON structure documentation for the PodInfo object returned by the Traefik Mesh Controller API status endpoints.",
+  "type": "object",
+  "fields": [
+    {
+      "name": "Name",
+      "type": "string",
+      "required": true,
+      "description": "Kubernetes pod name of the Traefik Mesh proxy node.",
+      "example": "traefik-mesh-proxy-abc12"
+    },
+    {
+      "name": "IP",
+      "type": "string",
+      "required": true,
+      "description": "IPv4 address of the mesh proxy pod.",
+      "example": "10.0.0.5"
+    },
+    {
+      "name": "Ready",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the proxy node pod is ready to handle mesh traffic.",
+      "example": true
+    }
+  ]
+}

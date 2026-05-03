@@ -1,0 +1,120 @@
+aid: traefik-mesh
+name: Traefik Mesh
+description: >-
+  Traefik Mesh is a lightweight, non-invasive service mesh built on top of
+  Traefik Proxy for Kubernetes. It provides automatic traffic management,
+  observability, and security for microservices without requiring sidecar
+  containers. Traefik Mesh is fully compliant with the Service Mesh Interface
+  (SMI) specification and supports HTTP, TCP, and UDP traffic modes, traffic
+  splitting, access control via TrafficTarget, rate limiting, circuit breaking,
+  and retries.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/traefik-mesh/refs/heads/main/apis.yml
+created: '2026-05-03'
+modified: '2026-05-03'
+specificationVersion: '0.19'
+tags:
+  - Kubernetes
+  - Service Mesh
+  - Open Source
+  - SMI
+  - Traffic Management
+apis:
+  - aid: traefik-mesh:controller-api
+    name: Traefik Mesh Controller API
+    description: >-
+      The Traefik Mesh Controller API provides internal debugging and status
+      endpoints for the Traefik Mesh controller pod. It exposes the current
+      dynamic configuration built by the controller, the mesh topology, the
+      readiness status of the controller, and per-node configuration for each
+      Traefik Mesh proxy node. The API is accessed directly on the controller
+      pod IP at port 9000 and is not exposed via Kubernetes service for
+      security reasons.
+    humanURL: https://doc.traefik.io/traefik-mesh/
+    baseURL: http://controller-pod-ip:9000
+    tags:
+      - Configuration
+      - Debugging
+      - Kubernetes
+      - Service Mesh
+      - Status
+    properties:
+      - type: Documentation
+        url: https://doc.traefik.io/traefik-mesh/
+      - type: OpenAPI
+        url: openapi/traefik-mesh-controller-openapi.yml
+      - type: GitHubRepository
+        url: https://github.com/traefik/mesh
+      - type: JSONSchema
+        url: json-schema/traefik-mesh-pod-info-schema.json
+      - type: JSONSchema
+        url: json-schema/traefik-mesh-service-entry-schema.json
+common:
+  - type: Website
+    url: https://traefik.io/traefik-mesh
+  - type: Documentation
+    url: https://doc.traefik.io/traefik-mesh/
+  - type: GitHubOrganization
+    url: https://github.com/traefik
+  - type: GitHubRepository
+    url: https://github.com/traefik/mesh
+  - type: HelmChart
+    url: https://github.com/traefik/mesh-helm-chart
+  - type: Blog
+    url: https://traefik.io/blog/
+  - type: Community
+    url: https://community.traefik.io/
+  - type: Slack
+    url: https://slack.traefik.io/
+  - type: TermsOfService
+    url: https://traefik.io/terms/
+  - type: PrivacyPolicy
+    url: https://traefik.io/privacy/
+  - type: License
+    url: https://github.com/traefik/mesh/blob/master/LICENSE
+  - type: Spectral
+    url: rules/traefik-mesh-rules.yml
+  - type: JSONLd
+    url: json-ld/traefik-mesh-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/traefik-mesh-vocabulary.yml
+  - type: Features
+    data:
+      - name: Non-Invasive Service Mesh
+        description: No sidecar containers required; uses per-node Traefik Proxy instances.
+      - name: SMI Compliance
+        description: Full support for Service Mesh Interface (SMI) specification including TrafficSplit, TrafficTarget, HTTPRouteGroup, and TCPRoute.
+      - name: HTTP Traffic Management
+        description: Retry, circuit breaking, rate limiting, and traffic splitting for HTTP services.
+      - name: TCP and UDP Support
+        description: Transparent proxy support for TCP and UDP traffic in addition to HTTP.
+      - name: Access Control List (ACL) Mode
+        description: All traffic forbidden by default unless explicitly allowed via SMI TrafficTarget resources.
+      - name: Traffic Splitting
+        description: Route traffic subsets to different service versions using SMI TrafficSplit.
+      - name: Kubernetes Annotations
+        description: Configure mesh behavior per service via Kubernetes annotations.
+      - name: Helm Installation
+        description: Easy deployment and configuration via official Helm chart.
+  - type: UseCases
+    data:
+      - name: Canary Deployments
+        description: Gradually shift traffic to new service versions using SMI TrafficSplit.
+      - name: Service-to-Service Access Control
+        description: Enforce zero-trust networking with SMI TrafficTarget ACL mode.
+      - name: Observability
+        description: Inspect live mesh configuration, topology, and node readiness via controller API.
+      - name: Microservices Traffic Management
+        description: Apply retries, circuit breakers, and rate limits without changing application code.
+  - type: Integrations
+    data:
+      - name: Traefik Proxy
+        description: Uses Traefik Proxy as the data plane proxy on each Kubernetes node.
+      - name: Kubernetes
+        description: Native Kubernetes integration via Custom Resource Definitions and annotations.
+      - name: SMI Spec
+        description: Implements Service Mesh Interface specification for interoperability.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

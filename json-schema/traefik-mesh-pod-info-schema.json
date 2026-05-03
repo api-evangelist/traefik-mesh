@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/traefik-mesh/main/json-schema/traefik-mesh-pod-info-schema.json",
+  "title": "Traefik Mesh Pod Info",
+  "description": "Status information about a Traefik Mesh proxy node pod as returned by the Controller API /api/status/nodes endpoint.",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "Kubernetes pod name of the Traefik Mesh proxy node.",
+      "example": "traefik-mesh-proxy-abc12"
+    },
+    "IP": {
+      "type": "string",
+      "format": "ipv4",
+      "description": "IP address of the pod.",
+      "example": "10.0.0.5"
+    },
+    "Ready": {
+      "type": "boolean",
+      "description": "Whether the pod is ready to handle mesh traffic.",
+      "example": true
+    }
+  },
+  "required": ["Name", "IP", "Ready"]
+}

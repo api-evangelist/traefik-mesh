@@ -1,0 +1,70 @@
+vocabulary: 1.0.0
+info:
+  provider: Traefik Mesh
+  description: Vocabulary for the Traefik Mesh service mesh platform covering SMI compliance, traffic management, Kubernetes integration, and mesh operations.
+  created: '2026-05-03'
+  modified: '2026-05-03'
+operational:
+  apis:
+    - name: Traefik Mesh Controller API
+      namespace: traefik-mesh-controller
+      status: active
+  resources:
+    - name: configuration
+      description: Dynamic Traefik routing configuration built by the mesh controller from Kubernetes services and SMI resources.
+    - name: topology
+      description: Live mesh topology showing all Kubernetes services and pods participating in the mesh.
+    - name: nodes
+      description: Traefik Mesh proxy nodes running on each Kubernetes cluster node.
+    - name: readiness
+      description: Health and readiness status of the mesh controller.
+  operations:
+    - name: getCurrentConfiguration
+      description: Retrieve the current dynamic configuration from the mesh controller.
+    - name: getCurrentTopology
+      description: Retrieve the current mesh topology.
+    - name: getMeshNodes
+      description: List all mesh proxy nodes and their readiness.
+    - name: getMeshNodeConfiguration
+      description: Get the configuration of a specific proxy node.
+    - name: getReadiness
+      description: Check controller readiness.
+domain:
+  terms:
+    - term: Service Mesh
+      definition: Infrastructure layer for service-to-service communication providing observability, traffic management, and security.
+    - term: SMI
+      definition: Service Mesh Interface — a standard API for service meshes on Kubernetes.
+    - term: TrafficSplit
+      definition: SMI resource for routing subsets of traffic to different service versions.
+    - term: TrafficTarget
+      definition: SMI resource defining access control rules between services.
+    - term: HTTPRouteGroup
+      definition: SMI resource for specifying HTTP route matching criteria.
+    - term: TCPRoute
+      definition: SMI resource for specifying TCP route matching criteria.
+    - term: ACL Mode
+      definition: Access Control List mode where all traffic is denied unless explicitly allowed via TrafficTarget.
+    - term: Sidecar
+      definition: Container pattern Traefik Mesh avoids by using per-node proxy instances.
+    - term: Controller
+      definition: Central Traefik Mesh component that reads Kubernetes state and configures proxy nodes.
+    - term: Mesh Node
+      definition: Per-Kubernetes-node Traefik Proxy instance that handles mesh traffic.
+    - term: Traffic Type
+      definition: Protocol used for a mesh service — http, tcp, or udp.
+    - term: Dynamic Configuration
+      definition: Traefik routing rules dynamically computed from Kubernetes services and SMI resources.
+    - term: Topology
+      definition: The graph of services and pods participating in the service mesh.
+  tags:
+    - Kubernetes
+    - Service Mesh
+    - Open Source
+    - SMI
+    - Traffic Management
+    - Observability
+    - Access Control
+    - HTTP
+    - TCP
+    - UDP

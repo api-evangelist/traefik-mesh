@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "traefik-mesh-proxy-node1-abc12",
+    "IP": "10.0.0.5",
+    "Ready": true
+  },
+  {
+    "Name": "traefik-mesh-proxy-node2-def34",
+    "IP": "10.0.0.6",
+    "Ready": true
+  },
+  {
+    "Name": "traefik-mesh-proxy-node3-ghi56",
+    "IP": "10.0.0.7",
+    "Ready": false
+  }
+]

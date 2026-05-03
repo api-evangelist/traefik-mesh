@@ -1,0 +1,34 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "traefik": "https://traefik.io/ns/",
+    "mesh": "https://doc.traefik.io/traefik-mesh/ns/",
+    "k8s": "https://kubernetes.io/ns/",
+
+    "TraefikMesh": "traefik:TraefikMesh",
+    "ControllerAPI": "mesh:ControllerAPI",
+    "MeshTopology": "mesh:MeshTopology",
+    "MeshNode": "mesh:MeshNode",
+    "ServiceEntry": "mesh:ServiceEntry",
+    "PodInfo": "mesh:PodInfo",
+    "DynamicConfiguration": "traefik:DynamicConfiguration",
+    "TrafficSplit": "mesh:TrafficSplit",
+    "TrafficTarget": "mesh:TrafficTarget",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "version": "schema:version",
+
+    "namespace": "k8s:namespace",
+    "podName": "k8s:podName",
+    "podIP": "k8s:podIP",
+    "ready": "mesh:ready",
+    "trafficType": "mesh:trafficType",
+    "ports": "mesh:ports",
+
+    "SoftwareApplication": "schema:SoftwareApplication",
+    "APIReference": "schema:APIReference",
+    "WebAPI": "schema:WebAPI"
+  }
+}

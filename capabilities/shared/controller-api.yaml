@@ -1,0 +1,211 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Traefik Mesh Controller API"
+  description: "Internal debugging and status API for the Traefik Mesh controller pod. Provides configuration, topology, and node readiness endpoints."
+  tags:
+    - Kubernetes
+    - Service Mesh
+    - Configuration
+    - Status
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TRAEFIK_MESH_CONTROLLER_IP: TRAEFIK_MESH_CONTROLLER_IP
+
+capability:
+  consumes:
+    - type: http
+      namespace: traefik-mesh-controller
+      baseUri: "http://{{env.TRAEFIK_MESH_CONTROLLER_IP}}:9000"
+      description: "Traefik Mesh Controller API for debugging configuration and checking mesh status."
+      resources:
+        - name: configuration
+          path: /api/configuration
+          description: "Current dynamic Traefik configuration built by the controller."
+          operations:
+            - name: get-current-configuration
+              method: GET
+              description: "Get current dynamic Traefik configuration from the controller."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: topology
+          path: /api/topology
+          description: "Current mesh topology including services and pods."
+          operations:
+            - name: get-current-topology
+              method: GET
+              description: "Get current mesh topology as seen by the controller."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: nodes
+          path: /api/status
+          description: "Mesh node status and readiness information."
+          operations:
+            - name: get-mesh-nodes
+              method: GET
+              description: "Get status and readiness of all Traefik Mesh proxy nodes."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: "$."
+
+            - name: get-readiness
+              method: GET
+              description: "Check if the Traefik Mesh controller is ready."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: string
+                  value: "$."
+
+            - name: get-mesh-node-configuration
+              method: GET
+              description: "Get configuration of a specific Traefik Mesh proxy node."
+              inputParameters:
+                - name: node
+                  in: path
+                  type: string
+                  required: true
+                  description: "Kubernetes pod name of the Traefik Mesh proxy node."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: traefik-mesh-controller-rest
+      resources:
+        - path: /v1/configuration/current
+          name: configuration
+          description: "Current controller configuration."
+          operations:
+            - method: GET
+              name: get-current-configuration
+              description: "Get current dynamic Traefik configuration."
+              call: "traefik-mesh-controller.get-current-configuration"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/topology/current
+          name: topology
+          description: "Current mesh topology."
+          operations:
+            - method: GET
+              name: get-current-topology
+              description: "Get current mesh topology."
+              call: "traefik-mesh-controller.get-current-topology"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/status/nodes
+          name: nodes
+          description: "Mesh proxy node status."
+          operations:
+            - method: GET
+              name: get-mesh-nodes
+              description: "List all mesh proxy nodes and their readiness."
+              call: "traefik-mesh-controller.get-mesh-nodes"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+
+        - path: /v1/status/nodes/{node}/configuration
+          name: node-configuration
+          description: "Per-node configuration."
+          operations:
+            - method: GET
+              name: get-mesh-node-configuration
+              description: "Get configuration of a specific mesh proxy node."
+              call: "traefik-mesh-controller.get-mesh-node-configuration"
+              with:
+                node: "rest.node"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/status/readiness
+          name: readiness
+          description: "Controller readiness check."
+          operations:
+            - method: GET
+              name: get-readiness
+              description: "Check if the controller is ready."
+              call: "traefik-mesh-controller.get-readiness"
+              outputParameters:
+                - type: string
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: traefik-mesh-controller-mcp
+      transport: http
+      tools:
+        - name: get-controller-configuration
+          description: "Get the current dynamic Traefik configuration built by the mesh controller."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "traefik-mesh-controller.get-current-configuration"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-mesh-topology
+          description: "Get the current mesh topology including all services and pods."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "traefik-mesh-controller.get-current-topology"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-mesh-nodes
+          description: "List all Traefik Mesh proxy nodes and their readiness status."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "traefik-mesh-controller.get-mesh-nodes"
+          outputParameters:
+            - type: array
+              mapping: "$."
+
+        - name: get-node-configuration
+          description: "Get the current Traefik configuration running on a specific mesh proxy node."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "traefik-mesh-controller.get-mesh-node-configuration"
+          with:
+            node: "tools.node"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: check-controller-readiness
+          description: "Check whether the Traefik Mesh controller has started and is ready."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "traefik-mesh-controller.get-readiness"
+          outputParameters:
+            - type: string
+              mapping: "$."

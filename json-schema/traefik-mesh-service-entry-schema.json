@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/traefik-mesh/main/json-schema/traefik-mesh-service-entry-schema.json",
+  "title": "Traefik Mesh Service Entry",
+  "description": "A Kubernetes service entry in the Traefik Mesh topology, representing a service participating in the mesh.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Kubernetes service name.",
+      "example": "my-service"
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Kubernetes namespace the service belongs to.",
+      "example": "default"
+    },
+    "ports": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 65535
+      },
+      "description": "List of ports exposed by the service.",
+      "example": [80, 8080]
+    },
+    "trafficType": {
+      "type": "string",
+      "enum": ["http", "tcp", "udp"],
+      "description": "Traffic protocol type configured for this service in the mesh.",
+      "example": "http"
+    },
+    "annotations": {
+      "type": "object",
+      "description": "Kubernetes service annotations that configure Traefik Mesh behavior.",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": {
+        "mesh.traefik.io/traffic-type": "http",
+        "mesh.traefik.io/retry-attempts": "2"
+      }
+    }
+  },
+  "required": ["name", "namespace"]
+}
