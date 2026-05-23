@@ -9,7 +9,16 @@ info:
     per-node configuration for each Traefik Mesh proxy node. This API is
     accessed directly on the controller pod IP at port 9000 and is intentionally
     not exposed via a Kubernetes Service for security reasons.
-  version: '1.0'
+
+
+    Maintenance status: this surface is documented as of Traefik Mesh v1.4.8
+    (released 2022-08-19), the most recent tagged release. The project has
+    received only CI and documentation maintenance since then and there is no
+    announced successor from Traefik Labs. Consumers should treat this API as
+    stable in shape but unlikely to evolve.
+  version: '1.4.8'
+  x-maintenance: dormant
+  x-last-release-date: '2022-08-19'
   contact:
     name: Traefik Labs
     url: https://traefik.io/

@@ -1,18 +1,26 @@
 aid: traefik-mesh
 name: Traefik Mesh
 description: >-
-  Traefik Mesh is a lightweight, non-invasive service mesh built on top of
-  Traefik Proxy for Kubernetes. It provides automatic traffic management,
-  observability, and security for microservices without requiring sidecar
-  containers. Traefik Mesh is fully compliant with the Service Mesh Interface
+  Traefik Mesh (formerly Maesh) is a lightweight, non-invasive service mesh
+  built on top of Traefik Proxy for Kubernetes. It provides automatic traffic
+  management, observability, and security for microservices without requiring
+  sidecar containers. Traefik Mesh is compliant with the Service Mesh Interface
   (SMI) specification and supports HTTP, TCP, and UDP traffic modes, traffic
   splitting, access control via TrafficTarget, rate limiting, circuit breaking,
-  and retries.
+  and retries. The project is effectively dormant: the last released version
+  is v1.4.8 (2022-08-19), and commit activity since then has been limited to
+  CI and documentation maintenance. The GitHub repository is not formally
+  archived as of this profile date and there is no official deprecation
+  banner on the project's README or documentation site, but the lack of
+  feature releases for nearly four years and the absence of an SMI-compatible
+  successor inside Traefik Labs' product line (Traefik Hub is positioned as
+  Kubernetes-native API management, not a service mesh) make this an
+  unmaintained project for practical purposes.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/traefik-mesh/refs/heads/main/apis.yml
 created: '2026-05-03'
-modified: '2026-05-03'
+modified: '2026-05-23'
 specificationVersion: '0.19'
 tags:
   - Kubernetes
@@ -20,6 +28,8 @@ tags:
   - Open Source
   - SMI
   - Traffic Management
+  - Dormant
+  - Unmaintained
 apis:
   - aid: traefik-mesh:controller-api
     name: Traefik Mesh Controller API
@@ -30,7 +40,12 @@ apis:
       readiness status of the controller, and per-node configuration for each
       Traefik Mesh proxy node. The API is accessed directly on the controller
       pod IP at port 9000 and is not exposed via Kubernetes service for
-      security reasons.
+      security reasons. As of the last released version (v1.4.8, 2022-08-19)
+      this surface has not changed and is unlikely to evolve given the
+      project's dormant maintenance state.
+    x-maintenance: dormant
+    x-last-release: v1.4.8
+    x-last-release-date: '2022-08-19'
     humanURL: https://doc.traefik.io/traefik-mesh/
     baseURL: http://controller-pod-ip:9000
     tags:
@@ -79,6 +94,40 @@ common:
     url: json-ld/traefik-mesh-context.jsonld
   - type: Vocabulary
     url: vocabulary/traefik-mesh-vocabulary.yml
+  - type: Releases
+    url: https://github.com/traefik/mesh/releases
+  - type: ChangeLog
+    url: https://github.com/traefik/mesh/releases
+  - type: MaintenanceStatus
+    data:
+      status: Dormant
+      formallyArchived: false
+      lastRelease: v1.4.8
+      lastReleaseDate: '2022-08-19'
+      lastCommitDate: '2026-03-23'
+      lastCommitNote: >-
+        Most recent commits are CI and documentation housekeeping
+        (chore(docs)/chore(ci)) rather than feature work. No code changes
+        of substance since 2022.
+      officialDeprecationNotice: false
+      replacement: None announced by Traefik Labs
+      relatedProducts:
+        - name: Traefik Hub
+          url: https://traefik.io/traefik-hub/
+          relationship: >-
+            Kubernetes-native API management — not a service mesh and not
+            positioned by Traefik Labs as a Traefik Mesh successor.
+        - name: Traefik Proxy
+          url: https://traefik.io/traefik/
+          relationship: >-
+            The underlying ingress/edge proxy. Several Traefik Mesh capabilities
+            (HTTP middleware, retries, rate limiting, circuit breaking) are
+            available natively in Traefik Proxy without the mesh layer.
+      ecosystemContext: >-
+        The broader Service Mesh Interface (SMI) specification that Traefik
+        Mesh implements has itself stalled (no new releases since 2021) and
+        was archived by CNCF in 2023, weakening the SMI-based positioning of
+        this project.
   - type: Features
     data:
       - name: Non-Invasive Service Mesh
