@@ -164,6 +164,8 @@ common:
         description: Native Kubernetes integration via Custom Resource Definitions and annotations.
       - name: SMI Spec
         description: Implements Service Mesh Interface specification for interoperability.
+  - type: LLMsTxt
+    url: https://traefik.io/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
