@@ -1,91 +1,80 @@
-# Traefik Mesh
+# Traefik Mesh (traefik-mesh)
 
-Traefik Mesh (formerly Maesh) is a lightweight, non-invasive service mesh built on top of Traefik Proxy for Kubernetes. It provides automatic traffic management, observability, and security for microservices without requiring sidecar containers. Traefik Mesh is compliant with the Service Mesh Interface (SMI) specification and supports HTTP, TCP, and UDP traffic modes, traffic splitting, access control via TrafficTarget, rate limiting, circuit breaking, and retries.
+Traefik Mesh (formerly Maesh) is a lightweight, non-invasive service mesh built on top of Traefik Proxy for Kubernetes. It provides automatic traffic management, observability, and security for microservices without requiring sidecar containers. Traefik Mesh is compliant with the Service Mesh Interface (SMI) specification and supports HTTP, TCP, and UDP traffic modes, traffic splitting, access control via TrafficTarget, rate limiting, circuit breaking, and retries. The project is effectively dormant: the last released version is v1.4.8 (2022-08-19), and commit activity since then has been limited to CI and documentation maintenance. The GitHub repository is not formally archived as of this profile date and there is no official deprecation banner on the project's README or documentation site, but the lack of feature releases for nearly four years and the absence of an SMI-compatible successor inside Traefik Labs' product line (Traefik Hub is positioned as Kubernetes-native API management, not a service mesh) make this an unmaintained project for practical purposes.
 
-**Website:** https://traefik.io/traefik-mesh
-**Documentation:** https://doc.traefik.io/traefik-mesh/
-**GitHub:** https://github.com/traefik/mesh
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/traefik-mesh/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/traefik-mesh/refs/heads/main/apis.yml)
 
-## Maintenance Status
+## Scope
 
-> **Dormant / unmaintained for practical purposes.** The last tagged release is **v1.4.8 on 2022-08-19** — nearly four years without a feature release. Commit activity since then has been limited to CI fixes and documentation housekeeping (most recently `chore(docs): upgrade Alpine and PyYAML to fix doc build` on 2026-03-23).
+- **Type:** Index
 
-- **GitHub repository archived:** No. The `traefik/mesh` repo is not formally marked archived as of this profile date.
-- **Official deprecation banner:** None. Neither the README at `github.com/traefik/mesh` nor the documentation site at `doc.traefik.io/traefik-mesh` carries a deprecation, end-of-life, or "no longer maintained" notice.
-- **Replacement announced by Traefik Labs:** None. Traefik Hub is Kubernetes-native API management and is *not* positioned by Traefik Labs as a Traefik Mesh successor. Several of Traefik Mesh's HTTP capabilities (retries, rate limiting, circuit breaking, traffic splitting middleware) are available natively in Traefik Proxy.
-- **Ecosystem context:** The SMI specification this project implements has itself stalled (no new releases since 2021) and was archived by CNCF in 2023, which weakens the SMI-based positioning of Traefik Mesh.
+## Tags
 
-This profile documents the API surface as it stood at v1.4.8; consumers should treat the contract as stable in shape but unlikely to evolve.
+- Kubernetes
+- Service Mesh
+- Open Source
+- SMI
+- Traffic Management
+- Dormant
+- Unmaintained
+
+## Timestamps
+
+- **Created:** 2026-05-03
+- **Modified:** 2026-05-23
 
 ## APIs
 
 ### Traefik Mesh Controller API
 
-The Traefik Mesh Controller API provides internal debugging and status endpoints for the Traefik Mesh controller pod. It exposes the current dynamic configuration built by the controller, the mesh topology, the readiness status of the controller, and per-node configuration for each Traefik Mesh proxy node.
+The Traefik Mesh Controller API provides internal debugging and status endpoints for the Traefik Mesh controller pod. It exposes the current dynamic configuration built by the controller, the mesh topology, the readiness status of the controller, and per-node configuration for each Traefik Mesh proxy node. The API is accessed directly on the controller pod IP at port 9000 and is not exposed via Kubernetes service for security reasons. As of the last released version (v1.4.8, 2022-08-19) this surface has not changed and is unlikely to evolve given the project's dormant maintenance state.
 
-- **Documentation:** https://doc.traefik.io/traefik-mesh/
-- **OpenAPI:** [openapi/traefik-mesh-controller-openapi.yml](openapi/traefik-mesh-controller-openapi.yml)
+- **Human URL:** [https://doc.traefik.io/traefik-mesh/](https://doc.traefik.io/traefik-mesh/)
+- **Base URL:** `http://controller-pod-ip:9000`
 
-## Artifacts
+#### Tags
 
-### OpenAPI Specs
+- Configuration
+- Debugging
+- Kubernetes
+- Service Mesh
+- Status
 
-| Spec | Description |
-|------|-------------|
-| [traefik-mesh-controller-openapi.yml](openapi/traefik-mesh-controller-openapi.yml) | Controller API for configuration, topology, and node status |
+#### Properties
 
-### Spectral Rules
+- [Documentation](https://doc.traefik.io/traefik-mesh/)
+- [OpenAPI](openapi/traefik-mesh-controller-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/traefik-mesh-controller.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/traefik-mesh-controller.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [GitHub Repository](https://github.com/traefik/mesh)
+- [JSON Schema](json-schema/traefik-mesh-pod-info-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/traefik-mesh-service-entry-schema.json) — [JSON Schema](https://json-schema.org/specification)
 
-| File | Description |
-|------|-------------|
-| [traefik-mesh-rules.yml](rules/traefik-mesh-rules.yml) | Spectral ruleset enforcing Traefik Mesh API conventions |
+## Common Properties
 
-### Naftiko Capabilities
-
-#### Shared Definitions
-
-| File | Description |
-|------|-------------|
-| [shared/controller-api.yaml](capabilities/shared/controller-api.yaml) | Per-API consumed definition for the Controller API |
-
-#### Workflow Capabilities
-
-| File | Description |
-|------|-------------|
-| [mesh-operations.yaml](capabilities/mesh-operations.yaml) | Unified mesh operations — configuration, topology, node health (5 tools) |
-
-### JSON Schemas
-
-| File | Description |
-|------|-------------|
-| [traefik-mesh-pod-info-schema.json](json-schema/traefik-mesh-pod-info-schema.json) | Schema for mesh proxy node pod status |
-| [traefik-mesh-service-entry-schema.json](json-schema/traefik-mesh-service-entry-schema.json) | Schema for Kubernetes service entries in the mesh |
-
-### JSON Structure
-
-| File | Description |
-|------|-------------|
-| [traefik-mesh-pod-info-structure.json](json-structure/traefik-mesh-pod-info-structure.json) | Structure documentation for PodInfo objects |
-
-### JSON-LD
-
-| File | Description |
-|------|-------------|
-| [traefik-mesh-context.jsonld](json-ld/traefik-mesh-context.jsonld) | JSON-LD context for Traefik Mesh linked data semantics |
-
-### Examples
-
-| File | Description |
-|------|-------------|
-| [traefik-mesh-get-nodes-example.json](examples/traefik-mesh-get-nodes-example.json) | Example response for GET /api/status/nodes |
-| [traefik-mesh-get-configuration-example.json](examples/traefik-mesh-get-configuration-example.json) | Example response for GET /api/configuration/current |
-
-### Vocabulary
-
-| File | Description |
-|------|-------------|
-| [traefik-mesh-vocabulary.yml](vocabulary/traefik-mesh-vocabulary.yml) | Domain vocabulary for Traefik Mesh concepts |
+- [Website](https://traefik.io/traefik-mesh)
+- [Documentation](https://doc.traefik.io/traefik-mesh/)
+- [GitHub Organization](https://github.com/traefik)
+- [GitHub Repository](https://github.com/traefik/mesh)
+- [Helm Chart](https://github.com/traefik/mesh-helm-chart)
+- [Blog](https://traefik.io/blog/)
+- [Community](https://community.traefik.io/)
+- [Slack](https://slack.traefik.io/)
+- [Terms of Service](https://traefik.io/terms/)
+- [Privacy Policy](https://traefik.io/privacy/)
+- [License](https://github.com/traefik/mesh/blob/master/LICENSE)
+- [Spectral Rules](rules/traefik-mesh-rules.yml) — [Spectral](https://docs.stoplight.io/docs/spectral)
+- [J S O N Ld](json-ld/traefik-mesh-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Vocabulary](vocabulary/traefik-mesh-vocabulary.yml)
+- [Releases](https://github.com/traefik/mesh/releases)
+- [Changelog](https://github.com/traefik/mesh/releases)
+- [Maintenance Status](undefined)
+- [Features](undefined)
+- [Use Cases](undefined)
+- [Integrations](undefined)
+- [L L Ms Txt](https://traefik.io/llms.txt)
 
 ## Maintainers
 
-- **Kin Lane** (kin@apievangelist.com)
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com
