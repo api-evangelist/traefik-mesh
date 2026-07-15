@@ -66,6 +66,8 @@ apis:
       - type: JSONSchema
         url: json-schema/traefik-mesh-service-entry-schema.json
 common:
+  - type: AgenticAccess
+    url: agentic-access/traefik-mesh-agentic-access.yml
   - type: DomainSecurity
     url: security/traefik-mesh-domain-security.yml
   - type: Website
