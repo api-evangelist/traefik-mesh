@@ -1,0 +1,78 @@
+openapi: 3.1.0
+info:
+  title: Traefik Mesh Controller Configuration Topology API
+  description: 'The Traefik Mesh Controller API provides internal debugging and status endpoints for the Traefik Mesh controller pod running in a Kubernetes cluster. It exposes the current dynamic Traefik configuration built by the controller, the mesh topology, the readiness state of the controller, and per-node configuration for each Traefik Mesh proxy node. This API is accessed directly on the controller pod IP at port 9000 and is intentionally not exposed via a Kubernetes Service for security reasons.
+
+
+    Maintenance status: this surface is documented as of Traefik Mesh v1.4.8 (released 2022-08-19), the most recent tagged release. The project has received only CI and documentation maintenance since then and there is no announced successor from Traefik Labs. Consumers should treat this API as stable in shape but unlikely to evolve.'
+  version: 1.4.8
+  x-maintenance: dormant
+  x-last-release-date: '2022-08-19'
+  contact:
+    name: Traefik Labs
+    url: https://traefik.io/
+  license:
+    name: Apache 2.0
+    url: https://github.com/traefik/mesh/blob/master/LICENSE
+servers:
+- url: http://controller-pod-ip:9000
+  description: Traefik Mesh Controller Pod (direct pod IP access)
+tags:
+- name: Topology
+  description: Endpoints for inspecting the mesh topology as seen by the controller.
+paths:
+  /api/topology/current:
+    get:
+      operationId: getCurrentTopology
+      summary: Get Current Mesh Topology
+      description: Returns the current mesh topology as seen by the Traefik Mesh controller, including all discovered services, pods, and their relationships within the Kubernetes cluster.
+      tags:
+      - Topology
+      responses:
+        '200':
+          description: Current mesh topology as raw JSON.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeshTopology'
+components:
+  schemas:
+    MeshTopology:
+      type: object
+      description: The mesh topology as computed by the Traefik Mesh controller, including all discovered Kubernetes services, pods, and traffic relationships.
+      properties:
+        services:
+          type: object
+          description: Map of discovered Kubernetes services in the mesh.
+          additionalProperties:
+            $ref: '#/components/schemas/ServiceEntry'
+        pods:
+          type: object
+          description: Map of pods participating in the mesh.
+          additionalProperties:
+            type: object
+    ServiceEntry:
+      type: object
+      description: A Kubernetes service entry in the mesh topology.
+      properties:
+        name:
+          type: string
+          description: Service name.
+        namespace:
+          type: string
+          description: Kubernetes namespace.
+        ports:
+          type: array
+          items:
+            type: integer
+          description: Exposed service ports.
+        trafficType:
+          type: string
+          enum:
+          - http
+          - tcp
+          - udp
+          description: Traffic type for this service.
+externalDocs:
+  description: Traefik Mesh API Documentation
+  url: https://doc.traefik.io/traefik-mesh/
