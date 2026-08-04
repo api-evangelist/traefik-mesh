@@ -1,0 +1,18 @@
+{
+  "provider": "traefik-mesh",
+  "sources": [
+    "traefik-mesh-configuration-api-openapi.yml",
+    "traefik-mesh-status-api-openapi.yml",
+    "traefik-mesh-topology-api-openapi.yml"
+  ],
+  "outputs": [
+    "traefik-mesh-configuration-api-openapi.yml",
+    "traefik-mesh-status-api-openapi.yml",
+    "traefik-mesh-topology-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
