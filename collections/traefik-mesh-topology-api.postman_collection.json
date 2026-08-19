@@ -1,0 +1,106 @@
+{
+  "item": [
+    {
+      "id": "8bb9d49f-fa37-450a-a178-dbc3befb8a09",
+      "name": "Topology",
+      "description": {
+        "content": "Endpoints for inspecting the mesh topology as seen by the controller.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f6eab9fa-e4e1-4cb0-bd1c-854896bf13e9",
+          "name": "Get Current Mesh Topology",
+          "request": {
+            "name": "Get Current Mesh Topology",
+            "description": {
+              "content": "Returns the current mesh topology as seen by the Traefik Mesh controller, including all discovered services, pods, and their relationships within the Kubernetes cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "topology",
+                "current"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "74f33f23-6be3-4fe2-95bc-a5e6c9009d2e",
+              "name": "Current mesh topology as raw JSON.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "topology",
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"services\": {\n    \"key_0\": {\n      \"name\": \"string\",\n      \"namespace\": \"string\",\n      \"ports\": [\n        1080,\n        3133\n      ],\n      \"trafficType\": \"http\"\n    }\n  },\n  \"pods\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://controller-pod-ip:9000",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "074a7985-b63d-448f-a0e8-721a2e268899",
+    "name": "Traefik Mesh Controller Configuration Topology API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Traefik Mesh Controller API provides internal debugging and status endpoints for the Traefik Mesh controller pod running in a Kubernetes cluster. It exposes the current dynamic Traefik configuration built by the controller, the mesh topology, the readiness state of the controller, and per-node configuration for each Traefik Mesh proxy node. This API is accessed directly on the controller pod IP at port 9000 and is intentionally not exposed via a Kubernetes Service for security reasons.\n\nMaintenance status: this surface is documented as of Traefik Mesh v1.4.8 (released 2022-08-19), the most recent tagged release. The project has received only CI and documentation maintenance since then and there is no announced successor from Traefik Labs. Consumers should treat this API as stable in shape but unlikely to evolve.\n\nContact Support:\n Name: Traefik Labs",
+      "type": "text/plain"
+    }
+  }
+}

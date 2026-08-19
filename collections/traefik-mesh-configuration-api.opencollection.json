@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Traefik Mesh Controller Configuration API",
+    "version": "1.4.8"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Current Controller Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://controller-pod-ip:9000/api/configuration/current"
+          },
+          "docs": "Returns the current dynamic Traefik configuration built by the Traefik Mesh controller. This is the live configuration that the controller has computed from Kubernetes services, SMI resources, and annotations. The response may differ between requests as it reflects real-time state."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

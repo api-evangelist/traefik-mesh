@@ -1,0 +1,405 @@
+{
+  "item": [
+    {
+      "id": "063ba4e4-f0d0-421e-82b2-797538f4aba9",
+      "name": "Status",
+      "description": {
+        "content": "Endpoints for checking the readiness and status of the Traefik Mesh controller and proxy nodes.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e15ff096-ecad-4adb-a383-cabb733a0861",
+          "name": "Get Mesh Node Status",
+          "request": {
+            "name": "Get Mesh Node Status",
+            "description": {
+              "content": "Returns a JSON array containing details about the readiness and status of all Traefik Mesh proxy nodes visible to the controller. Returns an empty array (HTTP 200) if no nodes are visible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "status",
+                "nodes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2412b01-3d33-4870-b910-d29dc929dd93",
+              "name": "Array of mesh node status objects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "status",
+                    "nodes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"traefik-mesh-proxy-abc12\",\n    \"IP\": \"10.0.0.5\",\n    \"Ready\": true\n  },\n  {\n    \"Name\": \"traefik-mesh-proxy-abc12\",\n    \"IP\": \"10.0.0.5\",\n    \"Ready\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6de82b65-afe8-42a0-9e27-07963b73a2d0",
+          "name": "Get Mesh Node Configuration",
+          "request": {
+            "name": "Get Mesh Node Configuration",
+            "description": {
+              "content": "Returns the current Traefik configuration running on the specified Traefik Mesh proxy node, identified by its pod name. Returns 404 if the pod cannot be found, or other non-200 status codes on errors. The error message is returned in the body and logged on the controller.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "status",
+                "node",
+                ":node",
+                "configuration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "node",
+                  "description": "(Required) The Kubernetes pod name of the Traefik Mesh proxy node."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f43b3be-00fa-4d5c-8202-89b1960aa6dc",
+              "name": "Current Traefik configuration on the specified node.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "status",
+                    "node",
+                    ":node",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "node",
+                      "description": "(Required) The Kubernetes pod name of the Traefik Mesh proxy node."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"http\": {\n    \"routers\": {\n      \"key_0\": {}\n    },\n    \"services\": {\n      \"key_0\": {}\n    },\n    \"middlewares\": {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    }\n  },\n  \"tcp\": {\n    \"routers\": {\n      \"key_0\": {}\n    },\n    \"services\": {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    }\n  },\n  \"udp\": {\n    \"routers\": {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {},\n      \"key_3\": {}\n    },\n    \"services\": {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {},\n      \"key_3\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af026272-a35e-4357-b6ef-0ec6e5b62472",
+              "name": "Node pod not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "status",
+                    "node",
+                    ":node",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "node",
+                      "description": "(Required) The Kubernetes pod name of the Traefik Mesh proxy node."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"pod not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c1826bb-b5b4-41ed-a248-06546b08979c",
+              "name": "Internal error retrieving node configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "status",
+                    "node",
+                    ":node",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "node",
+                      "description": "(Required) The Kubernetes pod name of the Traefik Mesh proxy node."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"pod not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "480ab26d-19e7-4619-b9be-e669868f73bb",
+          "name": "Get Controller Readiness",
+          "request": {
+            "name": "Get Controller Readiness",
+            "description": {
+              "content": "Returns HTTP 200 if the Traefik Mesh controller has successfully started and is ready to process requests. Returns HTTP 500 if the controller is not yet ready. Used as a readiness probe in Kubernetes deployments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "status",
+                "readiness"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23241930-69e9-4a98-b382-fc70451077cc",
+              "name": "Controller is ready.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "status",
+                    "readiness"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "OK",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1447fa79-1591-447d-afdb-93b59765aaa2",
+              "name": "Controller is not ready.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "status",
+                    "readiness"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Not Ready",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://controller-pod-ip:9000",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "328cf80b-2faa-443c-8e7a-e6c577fd399f",
+    "name": "Traefik Mesh Controller Configuration Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Traefik Mesh Controller API provides internal debugging and status endpoints for the Traefik Mesh controller pod running in a Kubernetes cluster. It exposes the current dynamic Traefik configuration built by the controller, the mesh topology, the readiness state of the controller, and per-node configuration for each Traefik Mesh proxy node. This API is accessed directly on the controller pod IP at port 9000 and is intentionally not exposed via a Kubernetes Service for security reasons.\n\nMaintenance status: this surface is documented as of Traefik Mesh v1.4.8 (released 2022-08-19), the most recent tagged release. The project has received only CI and documentation maintenance since then and there is no announced successor from Traefik Labs. Consumers should treat this API as stable in shape but unlikely to evolve.\n\nContact Support:\n Name: Traefik Labs",
+      "type": "text/plain"
+    }
+  }
+}

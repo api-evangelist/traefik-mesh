@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Traefik Mesh Controller Configuration Status API",
+    "version": "1.4.8"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Mesh Node Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://controller-pod-ip:9000/api/status/nodes"
+          },
+          "docs": "Returns a JSON array containing details about the readiness and status of all Traefik Mesh proxy nodes visible to the controller. Returns an empty array (HTTP 200) if no nodes are visible."
+        },
+        {
+          "info": {
+            "name": "Get Mesh Node Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://controller-pod-ip:9000/api/status/node/:node/configuration",
+            "params": [
+              {
+                "name": "node",
+                "value": "traefik-mesh-proxy-abc12",
+                "type": "path",
+                "description": "The Kubernetes pod name of the Traefik Mesh proxy node."
+              }
+            ]
+          },
+          "docs": "Returns the current Traefik configuration running on the specified Traefik Mesh proxy node, identified by its pod name. Returns 404 if the pod cannot be found, or other non-200 status codes on errors. The error message is returned in the body and logged on the controller."
+        },
+        {
+          "info": {
+            "name": "Get Controller Readiness",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://controller-pod-ip:9000/api/status/readiness"
+          },
+          "docs": "Returns HTTP 200 if the Traefik Mesh controller has successfully started and is ready to process requests. Returns HTTP 500 if the controller is not yet ready. Used as a readiness probe in Kubernetes deployments."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

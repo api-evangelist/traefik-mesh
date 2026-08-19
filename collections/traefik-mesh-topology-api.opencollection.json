@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Traefik Mesh Controller Configuration Topology API",
+    "version": "1.4.8"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Topology",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Current Mesh Topology",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://controller-pod-ip:9000/api/topology/current"
+          },
+          "docs": "Returns the current mesh topology as seen by the Traefik Mesh controller, including all discovered services, pods, and their relationships within the Kubernetes cluster."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
