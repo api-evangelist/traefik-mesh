@@ -36,6 +36,14 @@ specificationVersion: '0.23'
 tags:
   - Kubernetes
   - Service Mesh
+  - Open-Source
+  - SMI
+  - Traffic Management
+  - Dormant
+  - Unmaintained
+tags_raw:
+  - Kubernetes
+  - Service Mesh
   - Open Source
   - SMI
   - Traffic Management
