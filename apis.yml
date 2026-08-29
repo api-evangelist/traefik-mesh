@@ -17,6 +17,19 @@ description: >-
   Kubernetes-native API management, not a service mesh) make this an
   unmaintained project for practical purposes.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -107,6 +120,12 @@ apis:
   - type: JSONSchema
     url: json-schema/traefik-mesh-service-entry-schema.json
 common:
+  - type: IssueTracker
+    url: https://github.com/traefik/mesh/issues
+  - type: CodeOfConduct
+    url: https://github.com/traefik/mesh/blob/master/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/traefik/mesh/blob/master/CONTRIBUTING.md
   - type: AgenticAccess
     url: agentic-access/traefik-mesh-agentic-access.yml
   - type: DomainSecurity
