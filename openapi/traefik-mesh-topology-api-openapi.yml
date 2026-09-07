@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Traefik Mesh Controller Configuration Topology API
   description: 'The Traefik Mesh Controller API provides internal debugging and status endpoints for the Traefik Mesh controller pod running in a Kubernetes cluster. It exposes the current dynamic Traefik configuration built by the controller, the mesh topology, the readiness state of the controller, and per-node configuration for each Traefik Mesh proxy node. This API is accessed directly on the controller pod IP at port 9000 and is intentionally not exposed via a Kubernetes Service for security reasons.

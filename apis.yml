@@ -233,3 +233,5 @@ common:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-parent: traefik
+x-relationship: product
