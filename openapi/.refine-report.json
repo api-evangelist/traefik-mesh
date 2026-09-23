@@ -1,9 +1,7 @@
 {
   "provider": "traefik-mesh",
   "sources": [
-    "traefik-mesh-configuration-api-openapi.yml",
-    "traefik-mesh-status-api-openapi.yml",
-    "traefik-mesh-topology-api-openapi.yml"
+    "_original/traefik-mesh-controller-openapi.yml"
   ],
   "outputs": [
     "traefik-mesh-configuration-api-openapi.yml",
@@ -14,10 +12,13 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "traefik-mesh-configuration-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "traefik-mesh-status-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "traefik-mesh-topology-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "traefik-mesh-controller-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "traefik-mesh-configuration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "traefik-mesh-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "traefik-mesh-topology-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
