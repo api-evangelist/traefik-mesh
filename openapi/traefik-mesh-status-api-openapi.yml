@@ -92,22 +92,6 @@ paths:
                 example: Not Ready
 components:
   schemas:
-    PodInfo:
-      type: object
-      description: Status information about a Traefik Mesh proxy node pod.
-      properties:
-        Name:
-          type: string
-          description: Kubernetes pod name of the mesh proxy node.
-          example: traefik-mesh-proxy-abc12
-        IP:
-          type: string
-          description: Pod IP address.
-          example: 10.0.0.5
-        Ready:
-          type: boolean
-          description: Whether the pod is ready to handle traffic.
-          example: true
     ErrorResponse:
       type: object
       description: Error response body.
@@ -160,6 +144,22 @@ components:
               type: object
               additionalProperties:
                 type: object
+    PodInfo:
+      type: object
+      description: Status information about a Traefik Mesh proxy node pod.
+      properties:
+        Name:
+          type: string
+          description: Kubernetes pod name of the mesh proxy node.
+          example: traefik-mesh-proxy-abc12
+        IP:
+          type: string
+          description: Pod IP address.
+          example: 10.0.0.5
+        Ready:
+          type: boolean
+          description: Whether the pod is ready to handle traffic.
+          example: true
 externalDocs:
   description: Traefik Mesh API Documentation
   url: https://doc.traefik.io/traefik-mesh/
